@@ -5,13 +5,13 @@ Uses matplotlib and networkx to create graph of given directory structure and ex
 ## Examples
 
 ```
-
-
+./pfsg.py /dev dot.png -w 1920 -h 1080 -b '#333333FF' -l dot --edge-width 3 --edge-colour '#CCCCCCFF' --label-depth 2 --label-size 12 --label-colour '#000000FF'
 ```
+<img src="https://github.com/niveknosredneh/PFSG/blob/master/img/dot.png" width="640" align="middle">
 ```
-
-
+./pfsg.py /dev twopi.png -w 1920 -h 1080 -b '#333333FF' -l twopi --edge-width 3 --edge-colour '#CCCCCCFF' --label-depth 2 --label-size 12 --label-colour '#000000FF'
 ```
+<img src="https://github.com/niveknosredneh/PFSG/blob/master/img/twopi.png" width="640" align="middle">
 
 ### Prerequisites
 
