@@ -10,7 +10,8 @@ Uses matplotlib and networkx to create graph of given directory structure and ex
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/dot.png" width="640" align="middle">
 
 ```
-./pfsg.py /dev twopi.png -w 1920 -h 1080 -b '#333333FF' -l twopi --edge-width 3 --edge-colour '#CCCCCCFF' --label-depth 2 --label-size 12 --label-colour '#000000FF'
+./pfsg.py /dev twopi.png --image /home/odroid/eclipse.jpg -l twopi
+
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/twopi.png" width="640" align="middle">
 
