@@ -6,6 +6,7 @@ from networkx.drawing.nx_pydot import graphviz_layout
 import matplotlib.pyplot as plt
 import networkx as nx
 import os
+import subprocess
 import click
 
 @click.command()
@@ -16,14 +17,15 @@ import click
 @click.option("--label-size", "-f",  default=12, help="Font size")
 @click.option("--label-colour",  default="#AAAAAAFF", help="Font colour in form '#RRGGBBAA'")
 @click.option("--label-depth",  default=-1, help="Max depth to draw labels")
-@click.option("--background-colour", "-b",   default="#333333FF", help="Background colour in form '#RRGGBBAA'")
+@click.option("--image",  default=None, help="Image file for graph to overlay ontop of")
+@click.option("--background-colour", "-b",   default="#33333300", help="Background colour in form '#RRGGBBAA'")
 @click.option("--edge-width", default=0.5, help="Edge line width")
 @click.option("--edge-colour", default="#555555FF", help="Edge colour in form '#RRGGBBAA'")
 @click.option("--node-size", default=0, help="Node dot size, set to zero to disable")
 @click.option("--node-colour", default="#555555FF", help="Node colour in form '#RRGGBBAA'")
 @click.option("--layout", "-l",  default="dot", help="Layout style: 'dot' or 'twopi'")
 @click.option("--verbose", "-v",  default=False, is_flag=True, help="Display more output than necessary")
-def main(directory, width,  height, label_size, label_colour, label_depth, background_colour,  edge_width,  node_colour , node_size,  edge_colour,  layout,  verbose, output):
+def main(directory, width,  height, label_size, label_colour, label_depth, background_colour,  image,  edge_width,  node_colour , node_size,  edge_colour,  layout,  verbose, output):
     """ 
     PFSG - Python Filesystem Grapher
     
@@ -31,7 +33,7 @@ def main(directory, width,  height, label_size, label_colour, label_depth, backg
     
     """
 
-    G = nx.Graph() # create graph
+    G = nx.DiGraph() # create graph
     for (dirpath, dirnames, filenames) in os.walk(directory):
         for f in filenames:
             if verbose: print('FILE :', os.path.join(dirpath, f))
@@ -53,7 +55,7 @@ def main(directory, width,  height, label_size, label_colour, label_depth, backg
     fig = plt.figure(figsize=(width/100.0, height/100.0))
 
     nx.draw_networkx_nodes(G, pos_twopi, node_size=node_size, node_color=node_colour)
-    nx.draw_networkx_edges(G, pos_twopi, edge_color=edge_colour, width=edge_width)
+    nx.draw_networkx_edges(G, pos_twopi, edge_color=edge_colour, width=edge_width,  style='dotted')
     #draw node labels
     nx.draw_networkx_labels(G, pos=graphviz_layout(G, prog=layout, root=1), labels=labels ,  font_color=label_colour, font_size=label_size,  alpha=1)
     plt.axis('off')
@@ -63,9 +65,15 @@ def main(directory, width,  height, label_size, label_colour, label_depth, backg
     #plt.imshow(img)
     #nx.draw(G, pos_twopi, node_color="#33333300" )#,  with_labels=True)
     
-    fig.set_facecolor(background_colour)
+    if image: # use transparent background if overlaying on image
+        fig.set_facecolor('#00000000')
+    else:
+        fig.set_facecolor(background_colour)
     plt.savefig(output, facecolor=fig.get_facecolor() )
     plt.close()
+    
+    if image: 
+        out = subprocess.call(['composite',  '-blend',  '70',  output, image,  output])
 
 
 if __name__ == '__main__':

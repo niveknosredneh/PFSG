@@ -21,7 +21,7 @@ but so far tested only on ubuntu 18.04
 
 mandatory dependencies:
 ```
-sudo apt-get install python3 python3-pip
+sudo apt-get install python3 python3-pip imagemagick
 sudo pip3 install matplotlib networkx pydot graphviz click
 ```
 
