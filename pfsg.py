@@ -48,7 +48,6 @@ verbose):
     Uses matplotlib and networkx to create graph of given directory structure and exports to png image for use as desktop wallpaper
     
     """
-
     G = nx.Graph() # create graph
     base_depth = len(directory.split("/"))  -1
     G.add_node(directory,  file='False',  depth=0,  label=directory)
@@ -71,19 +70,18 @@ verbose):
         if file=='True':
             file_nodes.append(node)
             if depth[node] < label_depth: file_labels[node] = labels[node]
-            
         else:
             dir_nodes.append(node)
-            dir_labels[node] = labels[node]
+            if depth[node] < label_depth: dir_labels[node] = labels[node]
     
-    pos_twopi = graphviz_layout(G, prog=layout, root=1) # use layout
+    pos = graphviz_layout(G, prog=layout, root=1) # use layout
     fig = plt.figure(figsize=(width/100.0, height/100.0)) # set figure size
     
-    nx.draw_networkx_nodes(G, pos_twopi, nodelist=dir_nodes, node_size=node_size, node_color=node_colour)
-    nx.draw_networkx_nodes(G, pos_twopi, nodelist=file_nodes, node_size=file_node_size, node_color=file_node_colour)
-    nx.draw_networkx_edges(G, pos_twopi, edge_color=edge_colour, width=edge_width,  style='dotted',  connectionstyle='arc3,rad=0.2')
-    if show_file_labels: nx.draw_networkx_labels(G, pos=graphviz_layout(G, prog=layout, root=1), labels=file_labels ,  font_color=file_label_colour, font_size=file_label_size,  alpha=1)
-    nx.draw_networkx_labels(G, pos=graphviz_layout(G, prog=layout, root=1), labels=dir_labels ,  font_color=label_colour, font_size=label_size,  alpha=1)
+    nx.draw_networkx_nodes(G, pos, nodelist=dir_nodes, node_size=node_size, node_color=node_colour)
+    nx.draw_networkx_nodes(G, pos, nodelist=file_nodes, node_size=file_node_size, node_color=file_node_colour)
+    nx.draw_networkx_edges(G, pos, edge_color=edge_colour, width=edge_width)#,  style='dotted',  connectionstyle='arc3,rad=0.2')
+    if show_file_labels: nx.draw_networkx_labels(G, pos, labels=file_labels ,  font_color=file_label_colour, font_size=file_label_size,  alpha=1)
+    nx.draw_networkx_labels(G, pos, labels=dir_labels ,  font_color=label_colour, font_size=label_size,  alpha=1)
     plt.axis('off')
     #plt.axis('equal')
     
@@ -97,7 +95,6 @@ verbose):
     if image: out = subprocess.call(['composite',  '-blend',  '70',  output, image,  output])
     # depends on feh
     if set_wallpaper: out = subprocess.call(['feh',  '--bg-scale',  output])
-
 
 if __name__ == '__main__':
     main()
