@@ -10,13 +10,12 @@ Uses matplotlib and networkx to create graph of given directory structure and ex
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/dot.png" width="640" align="middle">
 
 ```
-./pfsg.py /home/odroid/roms twopi.png --image /home/odroid/eclipse.jpg -l twopi
+./pfsg.py /home/odroid/Code twopi.png -b "#000000FF" -l twopi --edge-colour "#666666FF" --edge-width 1 --label-colour "#FFFFFFFF" -f --file-node-colour "#55FF55FF" --file-node-size 5 --label-depth 3
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/twopi.png" width="640" align="middle">
 
 ```
 ./pfsg.py /home/odroid/Code sfdp.png -b "#000000FF" -l sfdp --edge-colour "#222222FF" --edge-width 1 --label-colour "#FFFFFFFF" -f --file-node-colour "#FF5555FF" --file-node-size 25 --label-size 8
-
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/sfdp.png" width="640" align="middle">
 
