@@ -5,7 +5,7 @@ Uses matplotlib and networkx to create graph of given directory structure and ex
 ## Examples
 
 ```
-./pfsg.py /dev/disk dot.png --image /home/odroid/opportunity.png -l dot --file-node-colour "#AA2222FF" --show-files --file-node-size 145 --label-size 12 --label-colour "#CCCCCCFF" --edge-colour "#666666FF" --edge-width 5
+./pfsg.py ~/polybar dot.png --image /home/odroid/opportunity.png -l dot --file-node-colour "#BBBBBBFF" --show-files --file-node-size 15 --node-size 15 --label-size 20 --label-colour "#FFFFFFFF" --edge-colour "#999999FF" --edge-style dotted --edge-width 3 --label-depth 1
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/dot.png" width="640" align="middle">
 
