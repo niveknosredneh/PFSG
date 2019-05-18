@@ -36,19 +36,26 @@ git clone https://github.com/niveknosredneh/PFSG.git
 ## Options
 
 ```
-  -w, --width INTEGER           Graph width
-  -h, --height INTEGER          Graph height
-  -f, --label-size INTEGER      Font size
-  --label-colour TEXT           Font colour in form '#RRGGBBAA'
-  --label-depth INTEGER         Max depth to draw labels
-  -b, --background-colour TEXT  Background colour in form '#RRGGBBAA'
-  --edge-width FLOAT            Edge line width
-  --edge-colour TEXT            Edge colour in form '#RRGGBBAA'
-  --node-size INTEGER           Node dot size, set to zero to disable
-  --node-colour TEXT            Node colour in form '#RRGGBBAA'
-  -l, --layout TEXT             Layout style: 'dot' or 'twopi'
-  -v, --verbose                 Display more output than necessary
-  --help                        Show this message and exit.
+  -w, --width INTEGER            Graph width
+  -h, --height INTEGER           Graph height
+  -f, --label-size INTEGER       Font size
+  --label-colour TEXT            Font colour in form '#RRGGBBAA'
+  --file-label-colour TEXT       Font colour in form '#RRGGBBAA'
+  -f, --file-label-size INTEGER  Font size
+  --label-depth INTEGER          Max depth to draw labels
+  --image TEXT                   Image file for graph to overlay ontop of
+  -b, --background-colour TEXT   Background colour in form '#RRGGBBAA'
+  --edge-width FLOAT             Edge line width
+  --edge-colour TEXT             Edge colour in form '#RRGGBBAA'
+  --node-size INTEGER            Node dot size, set to zero to disable
+  --node-colour TEXT             Node colour in form '#RRGGBBAA'
+  --show_files                   Shows files
+  --file-node-colour TEXT        Node colour in form '#RRGGBBAA'
+  --file-node-size INTEGER       Node dot size, set to zero to disable
+  -l, --layout TEXT              Layout style: 'dot' or 'twopi'
+  -v, --verbose                  Display more output than necessary
+  --help                         Show this message and exit.
+
 ```
 
 ## Authors
