@@ -66,15 +66,20 @@ cd PFSG && sudo chmod +x pfsg.py
   -h, --height INTEGER          Graph height
   -l, --layout TEXT             Layout style: dot|twopi|neato|fdp|sfdp|circo
   -i, --image TEXT              Image file for graph to overlay ontop of
+  -o, --opacity INTEGER         Opacity of graph when overlaid on image
   -b, --background-colour TEXT  Background colour in form '#RRGGBBAA'
-  -d, --depth INTEGER           Max node depth
+  -d, --max-depth INTEGER       Max node depth
   --label-depth INTEGER         Max depth to draw labels
   --label-size INTEGER          Font size for labels
+  --label-size-reduce INTEGER   Amount to reduce label size by depth
+  --label-alpha-reduce FLOAT    Amount to reduce label alpha by depth
   --label-colour TEXT           Font colour in form '#RRGGBBAA'
   --file-label-size INTEGER     Font size for file labels
   --file-label-colour TEXT      Font colour in form '#RRGGBBAA'
   --edge-width FLOAT            Edge line width
   --edge-colour TEXT            Edge colour in form '#RRGGBBAA'
+  --edge-colourmap TEXT         Edge colourmap based on depth, see readme for
+                                list
   --edge-style TEXT             Edge style: solid|dashed|dotted|dashdot
   --node-size INTEGER           Node dot size, set to zero to disable
   --node-colour TEXT            Node colour in form '#RRGGBBAA'
@@ -85,7 +90,6 @@ cd PFSG && sudo chmod +x pfsg.py
   -s, --set-wallpaper           Sets output image as wallpaper using feh
   -v, --verbose                 Display more output than necessary
   --help                        Show this message and exit.
-
 ```
 
 ```
