@@ -5,47 +5,62 @@ Uses matplotlib and networkx to create graph of given directory structure and ex
 ## Examples
 
 ```
-./pfsg.py ~/polybar dot.png --image /home/odroid/opportunity.png -l dot --file-node-colour "#BBBBBBFF" --show-files --file-node-size 15 --node-size 15 --label-size 20 --label-colour "#FFFFFFFF" --edge-colour "#999999FF" --edge-style dotted --edge-width 3 --label-depth 1
+./pfsg.py ~/polybar dot.png --image /home/odroid/opportunity.png \
+-l dot --file-node-colour "#BBBBBBFF" --show-files \
+--file-node-size 15 --node-size 15 --label-size 20 \
+--label-colour "#FFFFFFFF" --edge-colour "#999999FF" \
+--edge-style dotted --edge-width 3 --label-depth 1
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/dot.png" width="640" align="middle">
 
 ```
-./pfsg.py /home/odroid/Code twopi.png -b "#000000FF" -l twopi --edge-colour "#666666FF" --edge-width 1 --label-colour "#FFFFFFFF" -f --file-node-colour "#55FF55FF" --file-node-size 5 --label-depth 3
+./pfsg.py ~/Code twopi.png -b "#000000FF" \
+-l twopi --edge-colour "#666666FF" --edge-width 1 \
+--label-colour "#FFFFFFFF" -f --file-node-colour "#55FF55FF"\
+ --file-node-size 5 --label-depth 3
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/twopi.png" width="640" align="middle">
 
 ```
-./pfsg.py /home/odroid/Code sfdp.png -b "#000000FF" -l sfdp --edge-colour "#222222FF" --edge-width 1 --label-colour "#FFFFFFFF" -f --file-node-colour "#FF5555FF" --file-node-size 25 --label-size 8
+./pfsg.py ~/Code sfdp.png -b "#000000FF" -l sfdp \
+--edge-colour "#222222FF" --edge-width 1 \
+--label-colour "#FFFFFFFF" -f --file-node-colour "#FF5555FF" \
+--file-node-size 25 --label-size 8
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/sfdp.png" width="640" align="middle">
 
 
-### Prerequisites
+## Prerequisites
 
-hypothetically works on any modern linux distribution
-but so far tested only on ubuntu 18.04
+Tested only on ubuntu 18.04
 
-mandatory dependencies:
-
-Ubuntu and Debian:
+Ubuntu and Debian based:
 ```
-sudo apt-get install python3 python3-pip imagemagick feh
+# Mandatory dependencies:
+sudo apt-get install python3 python3-pip
 sudo pip3 install matplotlib networkx pydot graphviz click
+
+# Optional dependencies:
+sudo apt-get install imagemagick feh
 ```
-Arch:
+(untested) Arch based:
 ```
-sudo sudo pacman -S python3 python3-pip imagemagick feh python-pygraphviz
+# Mandatory dependencies:
+sudo pacman -S python3 python3-pip python-pygraphviz
 sudo pip3 install matplotlib networkx pydot graphviz click
+
+# Optional dependencies:
+sudo pacman -S imagemagick feh
 ```
 
-### Installing
+## Installing
 ```
 git clone https://github.com/niveknosredneh/PFSG.git
 cd PFSG && sudo chmod +x pfsg.py
 ...
 ```
 
-### Options
+## Options
 ```
   -w, --width INTEGER           Graph width
   -h, --height INTEGER          Graph height
@@ -73,9 +88,40 @@ cd PFSG && sudo chmod +x pfsg.py
 
 ```
 
+```
+Colourmaps available:
+Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, 
+BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, 
+Dark2_r, GnBu, GnBu_r, Greens, Greens_r, Greys, 
+Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, 
+PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, 
+Pastel2_r, PiYG, PiYG_r, PuBu, PuBuGn, PuBuGn_r, 
+PuBu_r, PuOr, PuOr_r, PuRd, PuRd_r, Purples, Purples_r, 
+RdBu, RdBu_r, RdGy, RdGy_r, RdPu, RdPu_r, RdYlBu, 
+RdYlBu_r, RdYlGn, RdYlGn_r, Reds, Reds_r, Set1, Set1_r, 
+Set2, Set2_r, Set3, Set3_r, Spectral, Spectral_r, Wistia, 
+Wistia_r, YlGn, YlGnBu, YlGnBu_r, YlGn_r, YlOrBr, 
+YlOrBr_r, YlOrRd, YlOrRd_r, afmhot, afmhot_r, 
+autumn, autumn_r, binary, binary_r, bone, bone_r, brg, 
+brg_r, bwr, bwr_r, cividis, cividis_r, cool, cool_r, 
+coolwarm, coolwarm_r, copper, copper_r, cubehelix, 
+cubehelix_r, flag, flag_r, gist_earth, gist_earth_r, 
+gist_gray, gist_gray_r, gist_heat, gist_heat_r, 
+gist_ncar, gist_ncar_r, gist_rainbow, gist_rainbow_r, 
+gist_stern, gist_stern_r, gist_yarg, gist_yarg_r, gnuplot, 
+gnuplot2, gnuplot2_r, gnuplot_r, gray, gray_r, hot, 
+hot_r, hsv, hsv_r, inferno, inferno_r, jet, jet_r, magma, 
+magma_r, nipy_spectral, nipy_spectral_r, ocean, ocean_r, 
+pink, pink_r, plasma, plasma_r, prism, prism_r, rainbow, 
+rainbow_r, seismic, seismic_r, spring, spring_r, summer, 
+summer_r, tab10, tab10_r, tab20, tab20_r, tab20b, tab20b_r, 
+tab20c, tab20c_r, terrain, terrain_r, twilight, twilight_r, 
+twilight_shifted, twilight_shifted_r, viridis, viridis_r, 
+winter, winter_r
+```
 ## Authors
 
-* **Kevin Henderson**
+* **Kevin Matthew Henderson**
 
 ## Contributors
 
