@@ -3,6 +3,7 @@
 # Kevin Matthew Henderson - May 18, 2019
 
 from networkx.drawing.nx_pydot import graphviz_layout
+import matplotlib
 import matplotlib.pyplot as plt
 import networkx as nx
 import os
@@ -26,7 +27,7 @@ import click
 @click.option("--file-label-colour",  default="#AAAAAAFF", help="Font colour in form '#RRGGBBAA'")
 @click.option("--edge-width", default=0.5, help="Edge line width")
 @click.option("--edge-colour", default="#555555FF", help="Edge colour in form '#RRGGBBAA'")
-@click.option("--edge-colourmap", help="Edge colourmap based on depth, see readme for list")
+@click.option("--edge-colourmap", default=None, help="Edge colourmap based on depth, see readme for list")
 @click.option("--edge-style", default="solid", help="Edge style: solid|dashed|dotted|dashdot ")
 @click.option("--node-size", default=0, help="Node dot size, set to zero to disable")
 @click.option("--node-colour", default="#555555FF", help="Node colour in form '#RRGGBBAA'")
@@ -99,13 +100,20 @@ set_wallpaper, verbose):
     fig = plt.figure(figsize=(width/100.0, height/100.0)) # set figure size
     
     # DRAW
+    #nodes
     nx.draw_networkx_nodes(G, pos, nodelist=dir_nodes, node_size=node_size, node_color=node_colour)
     nx.draw_networkx_nodes(G, pos, nodelist=file_nodes, node_size=file_node_size, node_color=file_node_colour)
-    
-    nx.draw_networkx_edges(G, pos, cmap=plt.get_cmap(edge_colourmap),  edge_color=edge_colours, width=edge_width,  style=edge_style,  edge_vmin=0,edge_vmax=deepest)
-    
-    if show_file_labels: nx.draw_networkx_labels(G, pos, labels=file_labels ,  font_color=file_label_colour, font_size=file_label_size,  alpha=1)
+    #edges
+    if edge_colourmap: 
+        colourmap = plt.get_cmap(edge_colourmap)
+        nx.draw_networkx_edges(G, pos,   edge_color=edge_colours, width=edge_width, edge_cmap=colourmap, style=edge_style,  edge_vmin=0,edge_vmax=deepest+8)
+    else: 
+        nx.draw_networkx_edges(G, pos,   edge_color=edge_colour, width=edge_width, style=edge_style)
+    #labels
+    if show_file_labels: 
+        nx.draw_networkx_labels(G, pos, labels=file_labels ,  font_color=file_label_colour, font_size=file_label_size,  alpha=1)
     nx.draw_networkx_labels(G, pos, labels=dir_labels ,  font_color=label_colour, font_size=label_size,  alpha=1)
+    
     plt.axis('off')
     #plt.axis('equal')
     
@@ -118,7 +126,7 @@ set_wallpaper, verbose):
     
     
     # depends on imagemagick
-    if image: out = subprocess.call(['composite',  '-blend',  opacity,  output, image,  output])
+    if image: out = subprocess.call(['composite',  '-blend',  str(opacity),  output, image,  output])
     # depends on feh
     if set_wallpaper: out = subprocess.call(['feh',  '--bg-scale',  output])
 
