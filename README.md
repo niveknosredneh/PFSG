@@ -112,6 +112,11 @@ spring, spring_r, summer, summer_r, tab10, tab10_r, tab20, tab20_r, tab20b, tab2
 tab20c, tab20c_r, terrain, terrain_r, twilight, twilight_r, twilight_shifted, 
 twilight_shifted_r, viridis, viridis_r, winter, winter_r
 ```
+
+<img src="https://matplotlib.org/_images/sphx_glr_colormap_reference_002.png" width="640" align="middle">
+
+See [https://matplotlib.org](https://matplotlib.org/gallery/color/colormap_reference.html) for full colourmap reference
+
 ## Authors
 
 * **Kevin Matthew Henderson**
