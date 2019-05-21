@@ -32,12 +32,12 @@ import click
 @click.option("--file-label-colour",  default="#AAAAAAFF", help="Font colour in form '#RRGGBBAA'")
 @click.option("--edge-width", default=0.5, help="Edge line width")
 @click.option("--edge-width-reduce", default=0.3, help="Amount to reduce edge width by depth")
-@click.option("--edge-colour", default="#555555FF", help="Edge colour '#RRGGBBAA' or matplotlib colormap")
+@click.option("--edge-colour", default="#555555FF", help="Edge colour in form '#RRGGBBAA' or      matplotlib colormap, see readme")
 @click.option("--edge-style", default="solid", help="Edge style: solid|dashed|dotted|dashdot ")
 @click.option("--node-size", default=0, help="Node dot size, set to zero to disable")
-@click.option("--node-colour", default="#555555FF", help="Node colour '#RRGGBBAA' or matplotlib colormap")
+@click.option("--node-colour", default="#555555FF", help="Node colour in form '#RRGGBBAA'")
 @click.option("--file-node-size", default=0, help="Node dot size, set to zero to disable")
-@click.option("--file-node-colour", default="#55FF55FF", help="Node colour in form '#RRGGBBAA'")
+@click.option("--file-node-colour", default="#FF5555FF", help="Node colour in form '#RRGGBBAA'")
 @click.option("--set-wallpaper", "-s",  default=False, is_flag=True, help="Sets output image as wallpaper using feh")
 @click.option("--verbose", "-v",  default=False, is_flag=True, help="Display more output than necessary")
 def main(
@@ -64,6 +64,10 @@ set_wallpaper, verbose):
     nodes_by_depth.append([])
     edges_by_depth = []
     edges_by_depth.append([])
+    edge_colours_by_depth = []
+    edge_colours_by_depth.append([])
+    node_colours_by_depth = []
+    node_colours_by_depth.append([])
     labels_by_depth = [{}]
     file_nodes = []
  
@@ -82,6 +86,7 @@ set_wallpaper, verbose):
             labels_by_depth.append({})
             edges_by_depth.append([])
             nodes_by_depth.append([])
+            edge_colours_by_depth.append([])
         if cur_depth < max_depth:
             if show_files:
                 for f in filenames: # FILES
@@ -93,6 +98,7 @@ set_wallpaper, verbose):
                     file_nodes.append(os.path.join(dirpath, f))
                     edges_by_depth[cur_depth].append((dirpath ,  os.path.join(dirpath, f)))
                     if show_file_labels: labels_by_depth[cur_depth][os.path.join(dirpath, f)] = new_label
+                    edge_colours_by_depth[cur_depth].append(cur_depth)
 
             for d in dirnames: # DIRECTORIES
                     new_label = ""
@@ -103,6 +109,7 @@ set_wallpaper, verbose):
                     nodes_by_depth[cur_depth].append(os.path.join(dirpath, d))
                     edges_by_depth[cur_depth].append((dirpath ,  os.path.join(dirpath, d)))
                     labels_by_depth[cur_depth][os.path.join(dirpath, d)] = new_label
+                    edge_colours_by_depth[cur_depth].append(cur_depth)
 
     print("Added " + str(num_nodes) + " Nodes")
     print("Calculating Layout ...")
