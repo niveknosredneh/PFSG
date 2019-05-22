@@ -2,7 +2,7 @@
 # Kevin Matthew Henderson - May 18, 2019
 
 from networkx.drawing.nx_pydot import graphviz_layout
-import matplotlib
+from networkx.drawing.nx_pydot import write_dot
 import matplotlib.pyplot as plt
 import networkx as nx
 import os
@@ -79,20 +79,24 @@ set_wallpaper, verbose):
             if show_files:
                 for f in filenames: # FILES
                     new_label = ""
-                    size=os.path.getsize(os.path.join(dirpath, f))
+                    size = 0
+                    if map_by_size: size=os.path.getsize(os.path.join(dirpath, f))
                     if size > largest: largest = size
-                    if cur_depth < label_depth: new_label = f
+                    if cur_depth < label_depth and show_file_labels: new_label = f
                     G.add_node(os.path.join(dirpath, f),  file='True',  depth=cur_depth,  label=new_label,   size=size)
                     G.add_edge(dirpath ,  os.path.join(dirpath, f), file='True',  depth=cur_depth, label=size,  size=size)
                     num_nodes+=1
                     files.append(os.path.join(dirpath, f))
             for d in dirnames: # DIRECTORIES
                     new_label = ""
-                    size=os.path.getsize(os.path.join(dirpath, d))
+                    size = 0
+                    if map_by_size: size=os.path.getsize(os.path.join(dirpath, d))
                     if cur_depth < label_depth: new_label = d
                     G.add_node(os.path.join(dirpath, d),  file='False', depth=cur_depth,  label=new_label,  size=size)
                     G.add_edge(dirpath ,  os.path.join(dirpath, d),  file='False',  depth=cur_depth,   label=size,  size=size)
                     num_nodes+=1
+    
+    write_dot(G, "grid.dot")
 
     print("Added " + str(num_nodes) + " Nodes")
     print("Calculating Layout ...")
@@ -102,53 +106,54 @@ set_wallpaper, verbose):
     # DRAW
     print("Drawing Graph ...")
     #nodes
-    node_depth = nx.get_node_attributes(G,'depth')
-    edge_depth = nx.get_edge_attributes(G,  'depth')
+    node_depths = nx.get_node_attributes(G,'depth')
+    edge_depths = nx.get_edge_attributes(G,  'depth')
     node_labels =  nx.get_node_attributes(G,  'label')
     edge_labels =  nx.get_edge_attributes(G,  'label')
-    node_size = nx.get_node_attributes(G,'size')
-    edge_size = nx.get_edge_attributes(G,'size')
+    node_sizes = nx.get_node_attributes(G,'size')
+    edge_sizes = nx.get_edge_attributes(G,'size')
     is_file = nx.get_node_attributes(G,'file')
     
     vmin=0
     if map_by_size: vmax = largest + int(colourmap_soften)
     else: vmax = deepest + int(colourmap_soften)
     
-    for file in files:
-        path = file
-        while len(path.split("/")) > base_depth:
-            edge_size[(os.path.dirname(path), path)]= int(edge_size[(os.path.dirname(path), path)])+int(node_size[file]) 
-            path = os.path.dirname(path)
-            new_size = int(node_size[path])+int(node_size[file]) 
-            if new_size > largest:# and path != directory: 
-                largest = new_size # 
-            node_size[path]= new_size
+    if map_by_size:
+        for file in files:
+            path = file
+            while len(path.split("/")) > base_depth:
+                edge_size[(os.path.dirname(path), path)]= int(edge_size[(os.path.dirname(path), path)])+int(node_size[file]) 
+                path = os.path.dirname(path)
+                new_size = int(node_sizes[path])+int(node_sizes[file]) 
+                if new_size > largest:# and path != directory: 
+                    largest = new_size # 
+                node_sizes[path]= new_size
 
-    for node, depth in node_depth.items():
-        if map_by_size: var = node_size[node]
+    for node, depth in node_depths.items():
+        if map_by_size: var = node_sizes[node]
         else: var = depth
         if node_colourmap: node_colour = [var]
         if file_node_colourmap: file_node_colour = [var]
-        if is_file[node]==False: # is dir
+        if is_file[node]=="False": # is dir
             nx.draw_networkx_nodes(G, pos, nodelist=[node], node_size=node_size, node_color=node_colour, cmap=node_colourmap, vmin=vmin, vmax=vmax)
         else: # is file
             nx.draw_networkx_nodes(G, pos, nodelist=[node], node_size=file_node_size, node_color=file_node_colour, cmap=file_node_colourmap, vmin=vmin, vmax=vmax)
     #edges
-    for edge, depth in edge_depth.items():
-            if map_by_size: var = node_size[edge[0]]
+    for edge, depth in edge_depths.items():
+            if map_by_size: var = node_sizes[edge[0]]
             else: var = depth
-            width=(edge_width-depth*edge_width_reduce)
+            new_width=(edge_width- depth*edge_width_reduce)
             if edge_colourmap: edge_colour = [var]
-            nx.draw_networkx_edges(G, pos, edgelist=[edge], edge_color=edge_colour, width=width, edge_cmap=edge_colourmap, style=edge_style,  edge_vmin=vmin,edge_vmax=vmax,  alpha=1)
+            nx.draw_networkx_edges(G, pos, edgelist=[edge], edge_color=edge_colour, width=new_width, edge_cmap=edge_colourmap, style=edge_style,  edge_vmin=vmin,edge_vmax=vmax,  alpha=1)
    #labels
     for node, label in node_labels.items():
         #label = node_size[node]#debug
         if map_by_size:
-            new_label_size = int( int(label_size) * (node_size[node] / largest) )
-            new_label_alpha = label_alpha * (node_size[node] / largest)
+            new_label_size = int( int(label_size) * (node_sizes[node] / largest) )
+            new_label_alpha = label_alpha * (node_sizes[node] / largest)
         else:    
-            new_label_size = int(int(label_size) - int(node_depth[node]) * int(label_size_reduce))
-            new_label_alpha = label_alpha / (label_alpha_reduce*int(node_depth[node]) + 1)
+            new_label_size = int(int(label_size) - int(node_depths[node]) * int(label_size_reduce))
+            new_label_alpha = label_alpha / (label_alpha_reduce*int(node_depths[node]) + 1)
         nx.draw_networkx_labels(G, pos, labels={node:label} ,  font_color=label_colour, font_size=new_label_size,  alpha=new_label_alpha)
         #if int(node_size[node]) > largest/20: nx.draw_networkx_labels(G, pos, labels={node:node.split("/")[-1]} ,  font_color=label_colour, font_size=new_label_size,  alpha=new_label_alpha)
 
