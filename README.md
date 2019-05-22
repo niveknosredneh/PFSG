@@ -69,24 +69,26 @@ cd PFSG && sudo chmod +x pfsg.py
   -o, --opacity INTEGER         Opacity of graph when overlaid on image
   -b, --background-colour TEXT  Background colour in form '#RRGGBBAA'
   -d, --max-depth INTEGER       Max node depth
+  -f, --show-files              Shows file nodes
+  --show-file-labels            Shows file labels, restricted by label-depth
   --label-depth INTEGER         Max depth to draw labels
   --label-size INTEGER          Font size for labels
-  --label-size-reduce INTEGER   Amount to reduce label size by depth
+  --label-size-reduce FLOAT     Amount to reduce label size by depth
+  --label-alpha INTEGER         Label alpha
   --label-alpha-reduce FLOAT    Amount to reduce label alpha by depth
   --label-colour TEXT           Font colour in form '#RRGGBBAA'
   --file-label-size INTEGER     Font size for file labels
   --file-label-colour TEXT      Font colour in form '#RRGGBBAA'
   --edge-width FLOAT            Edge line width
-  --edge-colour TEXT            Edge colour in form '#RRGGBBAA'
-  --edge-colourmap TEXT         Edge colourmap based on depth, see readme for
-                                list
+  --edge-width-reduce FLOAT     Amount to reduce edge width by depth
+  --edge-colour TEXT            Edge colour '#RRGGBBAA' or matplotlib colormap
   --edge-style TEXT             Edge style: solid|dashed|dotted|dashdot
   --node-size INTEGER           Node dot size, set to zero to disable
-  --node-colour TEXT            Node colour in form '#RRGGBBAA'
+  --node-colour TEXT            Node colour '#RRGGBBAA' or matplotlib colormap
   --file-node-size INTEGER      Node dot size, set to zero to disable
   --file-node-colour TEXT       Node colour in form '#RRGGBBAA'
-  -f, --show-files              Shows file nodes
-  --show-file-labels            Shows file labels, restricted by label-depth
+  --colourmap-soften TEXT       Adds buffer to colourmap range
+  -m, --map-by-size             Maps colours by file size rather than depth
   -s, --set-wallpaper           Sets output image as wallpaper using feh
   -v, --verbose                 Display more output than necessary
   --help                        Show this message and exit.
@@ -113,7 +115,7 @@ tab20c, tab20c_r, terrain, terrain_r, twilight, twilight_r, twilight_shifted,
 twilight_shifted_r, viridis, viridis_r, winter, winter_r
 ```
 
-<img src="https://matplotlib.org/_images/sphx_glr_colormap_reference_002.png" width="640" align="middle">
+<img src="https://matplotlib.org/_images/sphx_glr_colormap_reference_003.png" width="640" align="middle">
 
 See [https://matplotlib.org](https://matplotlib.org/gallery/color/colormap_reference.html) for full colourmap reference
 
