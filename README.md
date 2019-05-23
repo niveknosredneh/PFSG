@@ -29,6 +29,14 @@ Uses matplotlib, networkx and graphviz to create a beautiful graph of directory 
 ```
 <img src="https://github.com/niveknosredneh/PFSG/blob/master/img/sfdp.png" width="640" align="middle">
 
+```
+./pfsg.py ~/polybar ~/neato.png --image ~/Grey-Wall.png \
+-w 1920 -h 1080 -l neato --edge-width 2 --edge-width-reduce 0.2 \
+--file-node-size 3 --node-size 0 --label-size-reduce 2 \
+--edge-colour inferno --colourmap-soften 5 \
+--label-alpha-reduce 0.15
+```
+<img src="https://github.com/niveknosredneh/PFSG/blob/master/img/neato.png" width="640" align="middle">
 
 ## Prerequisites
 
