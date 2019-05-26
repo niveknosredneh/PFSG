@@ -63,8 +63,8 @@ sudo pacman -S imagemagick feh
 
 ## Installing
 ```
-git clone https://github.com/niveknosredneh/PFSG.git
-cd PFSG && sudo chmod +x pfsg.py
+wget https://raw.githubusercontent.com/niveknosredneh/PFSG/master/pfsg.py
+sudo chmod +x pfsg.py
 ...
 ```
 
